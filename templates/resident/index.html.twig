@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Barangay Maao Residents{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Barangay Maao Resident Registry</h1>
+    
+    <div class="container mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birth Date</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+                    <th>Voter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resident in residents %}
+                    <tr>
+                        <td>{{ resident.firstName }} {{ resident.lastName }}</td>
+                        <td>{{ resident.birthDate|date('M d, Y') }}</td>
+                        <td>{{ resident.address }}</td>
+                        <td>{{ resident.contactNumber }}</td>
+                        <td>{{ resident.isVoter ? 'Yes' : 'No' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

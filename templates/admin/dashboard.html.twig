@@ -1,0 +1,298 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard - Barangay Ma-ao{% endblock %}
+
+{% block stylesheets %}
+<style>
+    :root {
+        --maao-primary: #1e3799;
+        --maao-secondary: #e84118;
+        --maao-yellow: #fbc531;
+    }
+    
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    .sidebar {
+        background-color: var(--maao-primary);
+        min-height: 100vh;
+        position: fixed;
+        left: 0;
+        width: 250px;
+        z-index: 1000;
+        padding-top: 1rem;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 2rem;
+    }
+
+    .sidebar .nav-link {
+        color: rgba(255,255,255,0.8);
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s;
+    }
+
+    .sidebar .nav-link:hover {
+        color: white;
+        background-color: rgba(255,255,255,0.1);
+        padding-left: 1.8rem;
+    }
+
+    .sidebar .nav-link.active {
+        color: white;
+        background-color: rgba(255,255,255,0.2);
+        border-left: 4px solid var(--maao-yellow);
+    }
+
+    .sidebar .nav-link i {
+        margin-right: 10px;
+        width: 24px;
+        text-align: center;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        overflow: hidden;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .stat-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        opacity: 0.8;
+    }
+
+    .stat-trend {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 20px;
+    }
+
+    .activity-item {
+        padding: 1rem;
+        border-left: 4px solid transparent;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s;
+    }
+
+    .activity-item:hover {
+        background-color: #f8f9fa;
+        border-left-color: var(--maao-primary);
+    }
+
+    .quick-action-btn {
+        padding: 0.8rem;
+        border-radius: 10px;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-weight: 500;
+    }
+
+    .quick-action-btn i {
+        font-size: 1.2rem;
+    }
+
+    .quick-action-btn:hover {
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="text-center mb-4">
+        <img src="{{ asset('images/maao logo.png') }}" alt="Barangay Logo" class="img-fluid mb-3" style="max-width: 100px;">
+        <h5 class="text-white">Admin Dashboard</h5>
+    </div>
+    <nav>
+        <div class="nav flex-column">
+            <a class="nav-link active" href="{{ path('app_admin_dashboard') }}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-people"></i> Manage Residents
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-file-text"></i> Certificates
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-calendar-event"></i> Events
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-gear"></i> Settings
+            </a>
+            <a class="nav-link" href="{{ path('app_logout') }}">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">Welcome, Admin!</h2>
+            <p class="text-muted mb-0">
+                <i class="bi bi-calendar3"></i> {{ "now"|date("l, F d, Y") }}
+            </p>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-outline-primary">
+                <i class="bi bi-bell"></i>
+            </button>
+            <button class="btn btn-outline-primary">
+                <i class="bi bi-person"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="text-primary stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <span class="stat-trend bg-success-subtle text-success">
+                            <i class="bi bi-arrow-up"></i> 3.5%
+                        </span>
+                    </div>
+                    <h3 class="mb-1">2,500</h3>
+                    <p class="text-muted mb-0">Total Residents</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="text-warning stat-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <span class="stat-trend bg-warning-subtle text-warning">
+                            <i class="bi bi-exclamation-circle"></i> Urgent
+                        </span>
+                    </div>
+                    <h3 class="mb-1">15</h3>
+                    <p class="text-muted mb-0">Pending Requests</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="text-info stat-icon">
+                            <i class="bi bi-file-text"></i>
+                        </div>
+                        <span class="stat-trend bg-info-subtle text-info">
+                            This Month
+                        </span>
+                    </div>
+                    <h3 class="mb-1">156</h3>
+                    <p class="text-muted mb-0">Certificates Issued</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="text-success stat-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <span class="stat-trend bg-primary-subtle text-primary">
+                            <i class="bi bi-gear-fill"></i> Active
+                        </span>
+                    </div>
+                    <h3 class="mb-1">8</h3>
+                    <p class="text-muted mb-0">Active Projects</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Recent Activities -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Activities</h5>
+                    <button class="btn btn-sm btn-outline-primary">View All</button>
+                </div>
+                <div class="card-body">
+                    <div class="activity-item">
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <h6 class="mb-0">New Resident Registration</h6>
+                            <small class="text-muted">3 minutes ago</small>
+                        </div>
+                        <p class="mb-0 text-muted">Juan Dela Cruz completed registration</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <h6 class="mb-0">Certificate Request</h6>
+                            <small class="text-muted">1 hour ago</small>
+                        </div>
+                        <p class="mb-0 text-muted">Barangay Clearance requested by Maria Santos</p>
+                    </div>
+                    <div class="activity-item">
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <h6 class="mb-0">Event Updated</h6>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                        <p class="mb-0 text-muted">Barangay Clean-up Drive schedule updated</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-primary quick-action-btn">
+                            <i class="bi bi-person-plus"></i> Add New Resident
+                        </button>
+                        <button class="btn btn-success quick-action-btn">
+                            <i class="bi bi-file-earmark-text"></i> Issue Certificate
+                        </button>
+                        <button class="btn btn-info quick-action-btn text-white">
+                            <i class="bi bi-calendar-plus"></i> Schedule Event
+                        </button>
+                        <button class="btn btn-warning quick-action-btn">
+                            <i class="bi bi-megaphone"></i> Post Announcement
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

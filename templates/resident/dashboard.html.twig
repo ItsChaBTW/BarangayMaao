@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resident Dashboard - Barangay Ma-ao{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .bg-maao-blue {
+        background-color: #1e3799;
+    }
+    .bg-maao-red {
+        background-color: #e84118;
+    }
+    .text-maao-yellow {
+        color: #fbc531;
+    }
+    .service-card {
+        transition: transform 0.2s;
+        border: none;
+        border-radius: 10px;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    .header-banner {
+        background: linear-gradient(135deg, #1e3799 0%, #e84118 100%);
+        padding: 2rem;
+        color: white;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <!-- Welcome Banner -->
+    <div class="header-banner shadow">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2 class="mb-0">Welcome, {{ resident.firstName }}!</h2>
+                <p class="mb-0 text-white-50">{{ "now"|date("l, F d, Y") }}</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <img src="{{ asset('images/maao logo.png') }}" alt="Barangay Logo" class="img-fluid" style="max-width: 100px;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-3">Available Services</h4>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow service-card bg-maao-blue text-white">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-file-text display-4"></i>
+                    <h5 class="mt-3">Request Certificate</h5>
+                    <p class="mb-0">Apply for various barangay certificates</p>
+                    <a href="#" class="btn btn-light mt-3">Request Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow service-card bg-maao-red text-white">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-calendar-event display-4"></i>
+                    <h5 class="mt-3">Community Events</h5>
+                    <p class="mb-0">View and join upcoming events</p>
+                    <a href="#" class="btn btn-light mt-3">View Events</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow service-card" style="background-color: #fbc531;">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-chat-dots display-4"></i>
+                    <h5 class="mt-3">Submit Concerns</h5>
+                    <p class="mb-0">Report issues or submit suggestions</p>
+                    <a href="#" class="btn btn-dark mt-3">Submit Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status and Announcements -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-maao-blue text-white">
+                    <h5 class="mb-0">My Requests</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Barangay Clearance</h6>
+                                <span class="badge bg-warning">Pending</span>
+                            </div>
+                            <small class="text-muted">Requested on March 15, 2024</small>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Certificate of Residency</h6>
+                                <span class="badge bg-success">Completed</span>
+                            </div>
+                            <small class="text-muted">Issued on March 10, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-maao-red text-white">
+                    <h5 class="mb-0">Announcements</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Community Clean-up Drive</h6>
+                            <p class="mb-1">Join us this Saturday for our monthly clean-up drive.</p>
+                            <small class="text-muted">Posted 2 days ago</small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Free Medical Check-up</h6>
+                            <p class="mb-1">Free medical services available next week.</p>
+                            <small class="text-muted">Posted 5 days ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="card shadow">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">My Profile</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> {{ resident.firstName }} {{ resident.lastName }}</p>
+                    <p><strong>Email:</strong> {{ resident.email }}</p>
+                    <p><strong>Address:</strong> {{ resident.address }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Contact Number:</strong> {{ resident.contactNumber }}</p>
+                    <p><strong>Civil Status:</strong> {{ resident.civilStatus }}</p>
+                    <p><strong>Birth Date:</strong> {{ resident.birthDate|date('F d, Y') }}</p>
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-primary">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
